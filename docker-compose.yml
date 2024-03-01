@@ -1,0 +1,26 @@
+version: '3.8'
+
+
+services:
+  mysqldb:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    volumes:
+      - mysqlVolume:/var/lib/mysql
+      - mysqlConfig:/etc/mysql
+    ports:
+      - 3306:3306
+
+
+  docker-python:
+    build: 
+        context: .
+    ports:
+      - 5000:5000
+    depends_on:
+      - mysqldb
+
+volumes:
+  mysqlVolume:
+  mysqlConfig:
